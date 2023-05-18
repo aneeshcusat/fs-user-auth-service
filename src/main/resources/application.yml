@@ -1,0 +1,56 @@
+application-version: 1.0
+springdoc:
+  api-docs:
+    enabled: true
+
+#actuator config
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+  metrics:
+    export:
+      atlas:
+        enabled: false
+server:
+  port: 8080
+  error:
+    include-stacktrace: never
+  shutdown: graceful
+  compression:
+    enabled: true
+    min-response-size: 1024
+    mime-types: application/json
+
+spring:
+  output:
+    ansi:
+      enabled: ALWAYS
+  datasource:
+    url: jdbc:mysql://localhost:3306/testdb?useSSL=false
+    username: testdb
+    password: testdb123
+    jpa:
+      naming:
+        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+      properties:
+        hibernate:
+          dialect:  org.hibernate.dialect.MySQL5InnoDBDialect
+        ddl-auto: update
+
+# App Properties
+app:
+  jwtSecret: thisisasecretKey
+  jwtExpirationMs: 86400000
+  security:
+    maxLoginAllowed: 5
+    cors:
+      allowedOrigins: http://localhost:3000, http://127.0.0.1:80,  http://dev.userauth.com, *
+      allowedMethods: GET, POST, PUT, DELETE, OPTIONS
+      allowedHeaders: Authorization, Uid, Current-User-Id, Request-Origin, *
+  host:
+    name: http://localhost:8080
+  application:
+    name: UserApp
+
